@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ivory:     #FAF6EE;
+  --color-night:     #14213D;
+  --color-night-800: #0D1630;
+  --color-night-600: #24375E;
+  --color-sky-100:   #E8EFF8;
+  --color-sky-300:   #A9C4E4;
+  --color-sky-500:   #6F93C2;
+  --color-gold-300:  #E6D3A6;
+  --color-gold-500:  #C9A96A;
+  --color-gold-700:  #9A7B3E;
+  --color-ink:       #14213D;
+  --color-ink-soft:  #3E4F73;
+
+  --font-script:  'Great Vibes', cursive;
+  --font-display: 'Cormorant Garamond', serif;
+  --font-sans:    'DM Sans', sans-serif;
+
+  --animate-float:   float 7s ease-in-out infinite;
+  --animate-sparkle: sparkle 3.5s ease-in-out infinite;
+}
+
+html, body { background: var(--color-night-800); }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-14px); }
+}
+@keyframes sparkle {
+  0%, 100% { opacity: 0;   transform: scale(0.3) rotate(0deg); }
+  50%      { opacity: 1;   transform: scale(1)   rotate(180deg); }
+}
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+@keyframes glow {
+  0%, 100% { opacity: .55; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.08); }
+}
+@keyframes scroll-bounce {
+  0%, 100% { opacity: 0.9; transform: translateX(-50%) translateY(0); }
+  50%      { opacity: 0.3; transform: translateX(-50%) translateY(8px); }
+}
+
+.rays {
+  position: absolute; inset: -50%;
+  background: repeating-conic-gradient(from 0deg at 50% 50%,
+    rgba(201,169,106,0.09) 0deg 4deg, transparent 4deg 15deg);
+  -webkit-mask-image: radial-gradient(circle, #000 0%, transparent 60%);
+          mask-image: radial-gradient(circle, #000 0%, transparent 60%);
+  animation: spin-slow 120s linear infinite;
+}
+.halo { animation: glow 5s ease-in-out infinite; }
+
+.scroll-indicator {
+  width: 26px; height: 40px; border: 1.5px solid var(--color-gold-500);
+  border-radius: 13px; position: relative;
+}
+.scroll-indicator::after {
+  content: ''; position: absolute; top: 7px; left: 50%;
+  transform: translateX(-50%); width: 4px; height: 8px;
+  background: var(--color-gold-500); border-radius: 2px;
+  animation: scroll-bounce 2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rays, .halo, .scroll-indicator::after { animation: none; }
+}
